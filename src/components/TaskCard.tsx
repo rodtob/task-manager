@@ -31,10 +31,6 @@ const TaskCard = ({ task }: { task: Task }) => {
     updateTask(task.id, { priority: value });
   };
 
-  const handleDelete = () => {
-    deleteTask(task.id);
-  };
-
   return (
     <div
       className={`relative flex flex-col justify-between border p-4 rounded shadow-md w-64`}
@@ -84,7 +80,6 @@ const TaskCard = ({ task }: { task: Task }) => {
           </select>
         </>
       )}
-
       <CardButtons
         task={task}
         updateTask={updateTask}
