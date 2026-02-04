@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type Filter = "all" | "completed" | "incomplete";
 
@@ -7,7 +8,14 @@ interface FilterState {
   setFilter: (filter: Filter) => void;
 }
 
-export const useFilterStore = create<FilterState>((set) => ({
-  filter: "all",
-  setFilter: (filter) => set({ filter }),
-}));
+export const useFilterStore = create<FilterState>()(
+  persist(
+    (set) => ({
+      filter: "all",
+      setFilter: (filter) => set({ filter }),
+    }),
+    {
+      name: "filter-storage",
+    }
+  )
+);
