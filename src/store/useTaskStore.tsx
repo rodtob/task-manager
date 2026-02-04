@@ -14,7 +14,7 @@ export const useTaskStore = create<TaskState>()(
   persist(
     (set) => ({
       tasks: [],
-      addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })),
+      addTask: (task) => set((state) => ({ tasks: [task, ...state.tasks] })),
       toggleTask: (id) =>
         set((state) => ({
           tasks: state.tasks.map((t) =>
