@@ -10,7 +10,7 @@ const FilterBar = () => {
         <button
           key={f}
           onClick={() => setFilter(f as "all" | "completed" | "incomplete")}
-          className={`px-3 py-1 rounded ${
+          className={`px-3 m-2 py-1 rounded ${
             filter === f ? "bg-blue-600 text-white" : "bg-gray-200"
           }`}
         >
