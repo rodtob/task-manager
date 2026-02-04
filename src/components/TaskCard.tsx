@@ -18,6 +18,13 @@ const TaskCard = ({ task }: { task: Task }) => {
 
   const completedColor = "#6b7280";
   const completedBg = "#f9fafb";
+  const formattedDate = new Date(task.createdAt).toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -78,6 +85,10 @@ const TaskCard = ({ task }: { task: Task }) => {
             <option value="medium">Medium</option>
             <option value="low">Low</option>
           </select>
+          <span className="text-xs mb-2">
+            Created at:{" "}
+            {formattedDate}
+          </span>
         </>
       )}
       <CardButtons
