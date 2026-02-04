@@ -1,6 +1,6 @@
 type Priority = "high" | "medium" | "low";
 
-export type Tasks = {
+export type Task = {
   id: number;
   title: string;
   priority: Priority;

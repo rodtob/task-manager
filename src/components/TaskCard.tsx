@@ -1,13 +1,28 @@
 import { useState } from "react";
+import { useTaskStore } from "../store/useTaskStore";
 
-const TaskCard = () => {
-  const [title, setTitle] = useState("New Task");
-  const [priority, setPriority] = useState("medium");
+const TaskCard = ({ task }) => {
+  const updateTask = useTaskStore((state) => state.updateTask);
+
+  const [title, setTitle] = useState(task.title);
+  const [priority, setPriority] = useState(task.priority);
 
   const priorityStyles = {
     high: "border-red-600 bg-red-100",
     medium: "border-yellow-600 bg-yellow-100",
     low: "border-green-600 bg-green-100",
+  };
+
+  const handleTitleChange = (e) => {
+    const value = e.target.value;
+    setTitle(value);
+    updateTask(task.id, { title: value });
+  };
+
+  const handlePriorityChange = (e) => {
+    const value = e.target.value;
+    setPriority(value);
+    updateTask(task.id, { priority: value });
   };
 
   return (
@@ -17,16 +32,16 @@ const TaskCard = () => {
       }`}
     >
       <input
-        className="border p-1 w-full mb-2 text-black"
+        className="border p-1 w-full mb mb-2 text-black"
         type="text"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={handleTitleChange}
       />
 
       <select
-        className="border p-1 w-full  text-black"
+        className="border p-1 w-full text-black"
         value={priority}
-        onChange={(e) => setPriority(e.target.value)}
+        onChange={handlePriorityChange}
       >
         <option value="high">High</option>
         <option value="medium">Medium</option>
