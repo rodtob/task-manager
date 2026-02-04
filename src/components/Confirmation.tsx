@@ -2,7 +2,7 @@ export const Confirmation = ({ handleDelete, setShowConfirm }: any) => {
   return (
     <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
       <div className="bg-white p-4 rounded shadow">
-        <p>Are you sure you want to delete this task?</p>
+        <p className="text-black">Are you sure you want to delete this task?</p>
         <div className="flex gap-2 mt-2">
           <button
             onClick={handleDelete}
