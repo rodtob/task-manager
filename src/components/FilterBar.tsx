@@ -5,7 +5,7 @@ const FilterBar = () => {
   const setFilter = useFilterStore((state) => state.setFilter);
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2" data-testid="status-filter">
       {["all", "completed", "incomplete"].map((f) => (
         <button
           key={f}

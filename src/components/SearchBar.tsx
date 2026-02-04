@@ -6,6 +6,7 @@ const SearchBar = () => {
 
   return (
     <input
+      data-testid="search-bar"
       type="text"
       placeholder="Search by title..."
       value={searchTerm}

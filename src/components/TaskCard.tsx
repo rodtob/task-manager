@@ -46,8 +46,8 @@ const TaskCard = ({ task }: { task: Task }) => {
         backgroundColor: task.completed ? completedBg : "#fff",
         color: task.completed ? completedColor : priorityColors[priority],
       }}
+      data-testid={`task-${task.id}`} 
     >
-      {/* Priority Flag */}
       {!task.completed && (
         <div
           className="absolute top-0 right-0 w-0 h-0 border-l-20 border-l-transparent border-b-20"
@@ -55,7 +55,6 @@ const TaskCard = ({ task }: { task: Task }) => {
         />
       )}
 
-      {/* Title and Priority */}
       {task.completed ? (
         <section className="flex flex-col">
           <span className="mb-2 underline" style={{ color: completedColor }}>
@@ -72,6 +71,7 @@ const TaskCard = ({ task }: { task: Task }) => {
             type="text"
             value={title}
             onChange={handleTitleChange}
+            data-testid={`task-title-${task.id}`}
             style={{ color: priorityColors[priority] }}
           />
           <select
@@ -79,6 +79,7 @@ const TaskCard = ({ task }: { task: Task }) => {
             value={priority}
             onChange={handlePriorityChange}
             style={{ color: priorityColors[priority] }}
+            data-testid={`task-priority-${task.id}`}
           >
             <option value="high">High</option>
             <option value="medium">Medium</option>
