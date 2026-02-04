@@ -57,7 +57,7 @@ const TaskCard = ({ task }: { task: Task }) => {
 
       {task.completed ? (
         <section className="flex flex-col">
-          <span className="mb-2 underline" style={{ color: completedColor }}>
+          <span className="mb-2 line-through" style={{ color: completedColor }}>
             {title}
           </span>
           <span className="mb-2" style={{ color: completedColor }}>
