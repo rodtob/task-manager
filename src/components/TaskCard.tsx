@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useTaskStore } from "../store/useTaskStore";
 import type { Task } from "../types/Task";
+import { Confirmation } from "./Confirmation";
 
 const TaskCard = ({ task }: { task: Task }) => {
   const updateTask = useTaskStore((state) => state.updateTask);
   const deleteTask = useTaskStore((state) => state.deleteTask);
-    const [showConfirm, setShowConfirm] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const [title, setTitle] = useState(task.title);
   const [priority, setPriority] = useState(task.priority);
@@ -17,17 +18,17 @@ const TaskCard = ({ task }: { task: Task }) => {
   };
 
   const completedStyles = task.completed
-    ? "border-[#6b7280] bg-[#f9fafb] text-[#6b7280] line-through"
+    ? "border-[#6b7280] bg-[#f9fafb] text-[#6b7280]"
     : "";
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setTitle(value);
     updateTask(task.id, { title: value });
   };
 
-  const handlePriorityChange = (e) => {
-    const value = e.target.value;
+  const handlePriorityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value as Task["priority"];
     setPriority(value);
     updateTask(task.id, { priority: value });
   };
@@ -35,57 +36,63 @@ const TaskCard = ({ task }: { task: Task }) => {
   const handleDelete = () => {
     deleteTask(task.id);
     setShowConfirm(false);
-  }
+  };
 
   return (
     <div
-      className={`border p-4 rounded shadow-md w-64 ${
+      className={`flex flex-col justify-between border p-4 rounded shadow-md w-64 ${
         task.completed ? completedStyles : priorityStyles[priority]
       }`}
     >
-      <input
-        className="border p-1 w-full mb-2 text-black line-through:text-[#6b7280]"
-        type="text"
-        value={title}
-        onChange={handleTitleChange}
-      />
+      {task.completed ? (
+        <section className="flex flex-col">
+          <span>{title}</span>
+          <span>Priority: {priority}</span>
+        </section>
+      ) : (
+        <>
+          <input
+            className="border p-1 w-full mb-2 text-black"
+            type="text"
+            value={title}
+            onChange={handleTitleChange}
+            disabled={task.completed}
+          />
+          <select
+            className="border p-1 w-full mb-3 text-black"
+            value={priority}
+            onChange={handlePriorityChange}
+            disabled={task.completed}
+          >
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </>
+      )}
 
-      <select
-        className="border p-1 w-full mb-3 text-black"
-        value={priority}
-        onChange={handlePriorityChange}
-      >
-        <option value="high">High</option>
-        <option value="medium">Medium</option>
-        <option value="low">Low</option>
-      </select>
+      <div>
+        <button
+          onClick={() => updateTask(task.id, { completed: !task.completed })}
+          className="w-full mb-2 bg-[#16a34a] text-white py-1 rounded hover:opacity-90"
+        >
+          {task.completed ? "Task is Completed" : "Mark as Completed"}
+        </button>
 
-      <button
-        onClick={() =>
-          updateTask(task.id, { completed: !task.completed })
-        }
-        className="w-full mb-2 bg-[#16a34a] text-white py-1 rounded hover:opacity-90"
-      >
-        {task.completed ? "Complete" : "Incomplete"}
-      </button>
-
-      <button
-        onClick={() => setShowConfirm(true)}
-        className="w-full bg-[#dc2626] text-white py-1 rounded hover:opacity-90"
-      >
-        Delete
-      </button>
-      {showConfirm && (
-  <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
-    <div className="bg-white p-4 rounded shadow">
-      <p>Are you sure you want to delete this task?</p>
-      <div className="flex gap-2 mt-2">
-        <button onClick={handleDelete} className="bg-red-600 text-white px-3 py-1 rounded">Yes</button>
-        <button onClick={() => setShowConfirm(false)} className="bg-gray-300 px-3 py-1 rounded">No</button>
+        <button
+          onClick={() => setShowConfirm(true)}
+          className="w-full bg-[#dc2626] text-white py-1 rounded hover:opacity-90"
+        >
+          Delete
+        </button>
       </div>
-    </div>
-  </div>
-)}
+
+      {showConfirm && (
+        <Confirmation
+          handleDelete={handleDelete}
+          setShowConfirm={setShowConfirm}
+        />
+      )}
     </div>
   );
 };
