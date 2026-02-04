@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-type Filter = "all" | "completed" | "incomplete";
+import type { Filter } from "../types/Task";
 
 interface FilterState {
   filter: Filter;
