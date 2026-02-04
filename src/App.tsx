@@ -1,8 +1,10 @@
+import TaskCard from "./components/TaskCard"
+
 function App() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-    <p data-testid='boilerplate'>Boilerplate</p>
+      <TaskCard/>
     </div>
 
   )
