@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useTaskStore } from "../store/useTaskStore";
 import type { Task } from "../types/Task";
 import { CardButtons } from "./CardButtons";
+import { priorityColors, completedBg, completedColor } from "../constants/colors";
+import { getFormattedDate } from "../helpers/data";
 
 const TaskCard = ({ task }: { task: Task }) => {
   const updateTask = useTaskStore((state) => state.updateTask);
@@ -9,22 +11,6 @@ const TaskCard = ({ task }: { task: Task }) => {
 
   const [title, setTitle] = useState(task.title);
   const [priority, setPriority] = useState(task.priority);
-
-  const priorityColors = {
-    high: "#dc2626",
-    medium: "#ca8a04",
-    low: "#16a34a",
-  };
-
-  const completedColor = "#6b7280";
-  const completedBg = "#f9fafb";
-  const formattedDate = new Date(task.createdAt).toLocaleString(undefined, {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -37,6 +23,8 @@ const TaskCard = ({ task }: { task: Task }) => {
     setPriority(value);
     updateTask(task.id, { priority: value });
   };
+
+  const formattedDate = getFormattedDate(new Date(task.createdAt));
 
   return (
     <div
