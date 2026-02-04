@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useTaskStore } from "../store/useTaskStore";
 import type { Task } from "../types/Task";
-import { Confirmation } from "./Confirmation";
 import { CardButtons } from "./CardButtons";
 
 const TaskCard = ({ task }: { task: Task }) => {
   const updateTask = useTaskStore((state) => state.updateTask);
   const deleteTask = useTaskStore((state) => state.deleteTask);
-  const [showConfirm, setShowConfirm] = useState(false);
 
   const [title, setTitle] = useState(task.title);
   const [priority, setPriority] = useState(task.priority);
@@ -35,7 +33,6 @@ const TaskCard = ({ task }: { task: Task }) => {
 
   const handleDelete = () => {
     deleteTask(task.id);
-    setShowConfirm(false);
   };
 
   return (
@@ -46,7 +43,7 @@ const TaskCard = ({ task }: { task: Task }) => {
         backgroundColor: task.completed ? completedBg : "#fff",
         color: task.completed ? completedColor : priorityColors[priority],
       }}
-      data-testid={`task-${task.id}`} 
+      data-testid={`task-${task.id}`}
     >
       {!task.completed && (
         <div
@@ -91,16 +88,8 @@ const TaskCard = ({ task }: { task: Task }) => {
       <CardButtons
         task={task}
         updateTask={updateTask}
-        setShowConfirm={setShowConfirm}
-        handleDelete={handleDelete}
+        deleteTask={deleteTask}
       />
-
-      {showConfirm && (
-        <Confirmation
-          handleDelete={handleDelete}
-          setShowConfirm={setShowConfirm}
-        />
-      )}
     </div>
   );
 };

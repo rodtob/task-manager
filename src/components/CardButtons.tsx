@@ -1,4 +1,4 @@
-export const CardButtons = ({ task, updateTask, setShowConfirm }: any) => {
+export const CardButtons = ({ task, updateTask, deleteTask }: any) => {
   return (
     <div className="flex flex-col gap-2">
       <button
@@ -9,7 +9,7 @@ export const CardButtons = ({ task, updateTask, setShowConfirm }: any) => {
       </button>
 
       <button
-        onClick={() => setShowConfirm(true)}
+        onClick={() => deleteTask(task.id)}
         className="w-full bg-[#dc2626] text-white py-1 rounded hover:opacity-90"
       >
         Delete
