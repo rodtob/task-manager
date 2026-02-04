@@ -6,7 +6,7 @@ import TaskList from "./components/TaskList";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 pb-4">
       <Header />
       <div className="flex flex-col md:flex-row justify-between m-2 gap-2">
         <TaskCounter />
