@@ -47,8 +47,8 @@ const TaskCard = ({ task }: { task: Task }) => {
     >
       {task.completed ? (
         <section className="flex flex-col">
-          <span>{title}</span>
-          <span>Priority: {priority}</span>
+          <span className="mb-2">{title}</span>
+          <span className="mb-2">Priority: {priority}</span>
         </section>
       ) : (
         <>

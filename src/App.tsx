@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
-      <div className="flex justify-between m-2">
+      <div className="flex flex-col md:flex-row justify-between m-2 gap-2">
         <TaskCounter />
         <FilterBar />
         <SearchBar />
