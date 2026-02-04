@@ -3,15 +3,25 @@ import type { Task } from "../types/Task";
 
 export const useTaskStore = create((set) => ({
   tasks: [] as Task[],
-  addTask: (task) =>
+
+  addTask: (task: Task) =>
     set((state) => ({ tasks: [...state.tasks, task] })),
-  toggleTask: (id) =>
+
+  toggleTask: (id: number) =>
     set((state) => ({
       tasks: state.tasks.map((t) =>
         t.id === id ? { ...t, completed: !t.completed } : t
       ),
     })),
-  deleteTask: (id) =>
+
+  updateTask: (id: number, updates: Partial<Task>) =>
+    set((state) => ({
+      tasks: state.tasks.map((t) =>
+        t.id === id ? { ...t, ...updates } : t
+      ),
+    })),
+
+  deleteTask: (id: number) =>
     set((state) => ({
       tasks: state.tasks.filter((t) => t.id !== id),
     })),
